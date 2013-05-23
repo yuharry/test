@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<title></title>
 </head>
 <body>
@@ -34,9 +34,9 @@ var startValue = 100,
 	},
 	next = function(level, obj){
 		var k, 
-			curr = obj.his_chain.split(spliter)[obj.his_chain.split(spliter).length-1]
-			currObj = $.extend(new HisObj(), obj)
-			levelForNext = level;
+			currType = obj.his_chain.split(spliter)[obj.his_chain.split(spliter).length-1]
+			currObj = $.extend({}, obj);
+			
 		
 		for(k in givenRates){
 			if((currObj.his_chain).indexOf(k) >= 0){
@@ -44,8 +44,9 @@ var startValue = 100,
 			}
 			var ori = k.split(spliter)[0], 
 				to = k.split(spliter)[1]
-				objForNext = $.extend(new HisObj(), currObj);
-			if(curr === ori){
+				objForNext = $.extend({}, currObj), 
+				levelForNext = level;
+			if(currType === ori){
 				objForNext.his_chain = objForNext.his_chain + spliter + to;
 				objForNext.value = objForNext.value * parseFloat(givenRates[k]);
 				levelForNext++;
@@ -65,7 +66,8 @@ var startValue = 100,
 		var head = new HisObj();
 		ignoreWhatIDontNeed();
 		for(k in givenRates){
-			var ori = k.split(spliter)[0], to = k.split(spliter)[1];
+			var ori = k.split(spliter)[0], 
+				to = k.split(spliter)[1];
 
 			head.head = ori;
 			head.his_chain = head.head + spliter + to;
