@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+var startValue = 100, 
+	spliter = '_',
+	givenRates = {"USD_JPY": "92.3496784", "USD_USD": "1.0000000", "JPY_EUR": "0.0083411", "BTC_USD": "108.4845028", "JPY_BTC": "0.0000891", "USD_EUR": "0.7011469", "EUR_USD": "1.4131915", "EUR_JPY": "144.7928261", "JPY_USD": "0.0107225", "BTC_BTC": "1.0000000", "EUR_BTC": "0.0123728", "BTC_JPY": "11105.1478901", "JPY_JPY": "1.0000000", "BTC_EUR": "80.0209237", "EUR_EUR": "1.0000000", "USD_BTC": "0.0074828"},
+	k,
+	HisObj = function(){
+		return {
+			head: '',
+			his_chain: '',
+			value: 0
+		};
+	},
+	ignoreWhatIDontNeed = function(){
+		for(k in givenRates){
+			if(givenRates.hasOwnProperty(k)) {
+				if(parseFloat(givenRates[k]) === 1){
+					console.log('kill this', k, parseFloat(givenRates[k]));
+					delete givenRates[k];
+				}
+			}
+		}
+	},
+	toOther = function(){
+	},
+	next = function(level, obj){
+		var k, 
+			curr = obj.his_chain.split(spliter)[obj.his_chain.split(spliter).length-1]
+			currObj = $.extend(new HisObj(), obj)
+			levelForNext = level;
+		
+		for(k in givenRates){
+			if((currObj.his_chain).indexOf(k) >= 0){
+				continue;
+			}
+			var ori = k.split(spliter)[0], 
+				to = k.split(spliter)[1]
+				objForNext = $.extend(new HisObj(), currObj);
+			if(curr === ori){
+				objForNext.his_chain = objForNext.his_chain + spliter + to;
+				objForNext.value = objForNext.value * parseFloat(givenRates[k]);
+				levelForNext++;
+				if(objForNext.head === to){
+					if(objForNext.value > startValue){
+						console.log('END: ', levelForNext, objForNext);
+					}
+					continue;
+				}else{
+					return next(levelForNext, objForNext);
+				}
+			}
+		}
+		
+	},
+	mainProgress = function(){
+		var head = new HisObj();
+		ignoreWhatIDontNeed();
+		for(k in givenRates){
+			var ori = k.split(spliter)[0], to = k.split(spliter)[1];
+
+			head.head = ori;
+			head.his_chain = head.head + spliter + to;
+			head.value = startValue * parseFloat(givenRates[k]);
+			next(1, head);
+		}
+	};
+
+	mainProgress();
+
+
+</script>
+</script>
+</html>
