@@ -7,7 +7,6 @@
 <body>
     
 </body>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
 var startValue = 100, 
     spliter = '_',
@@ -35,7 +34,7 @@ var startValue = 100,
     next = function(level, obj){
         var k, 
             currType = obj.his_chain.split(spliter)[obj.his_chain.split(spliter).length-1]
-            currObj = $.extend({}, obj);
+            currObj = cloneObj(obj);
             
         
         for(k in givenRates){
@@ -44,7 +43,7 @@ var startValue = 100,
             }
             var ori = k.split(spliter)[0], 
                 to = k.split(spliter)[1]
-                objForNext = $.extend({}, currObj), 
+                objForNext = cloneObj(currObj), 
                 levelForNext = level;
             if(currType === ori){
                 objForNext.his_chain = objForNext.his_chain + spliter + to;
@@ -61,6 +60,13 @@ var startValue = 100,
             }
         }
         
+    },
+    cloneObj = function(target){
+        var rtn ={}, property;
+        for(property in target){
+            rtn[property] = target[property];
+        }
+        return rtn;
     },
     mainProgress = function(){
         var head = new HisObj();
