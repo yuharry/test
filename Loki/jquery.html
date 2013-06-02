@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>jquery</title>
+        <style>
+
+        </style>
+    </head>
+    <body >
+
+        <input id="times" value="1"/> <input id="disBtn" type="button" value="display" onclick="dis()"/>
+		<table id="t">
+		</table>
+    </body>
+	<script src="components/jquery/jquery.js"></script>
+	<script>
+		var _columns = [
+				{'key' : 'c1', value : 'ID'},
+				{'key' : 'c2', value : 'status'},
+				{'key' : 'c3', value : 'city'},
+				{'key' : 'c4', value : 'region'},
+				{'key' : 'c5', value : 'addr'},
+				{'key' : 'c6', value : 'model'},
+				{'key' : 'c7', value : 'desc'}
+			],
+			_datas = [
+{'c1' : 'id001','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id002','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id003','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id004','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id005','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id006','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id007','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id008','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id009','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id010','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id011','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id012','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id013','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id014','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id015','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'}
+			];
+		
+		function dis(){
+			var tmp_datas = [], times = $('#times').val(),
+				th, tb, tr, i, j, tmp, tmp2;
+			
+			$('#t').empty();
+			while(times--){
+				tmp_datas = tmp_datas.concat(_datas);
+			}
+			th = $('<thead>');
+			tr = $('<tr>');
+			tmp = _columns.length;
+			for(i = 0; i < tmp; i++){
+				tr.append('<th>'+ _columns[i].value +'</th>');
+			}
+			$('#t').append(th.append(tr));
+			
+			tmp2 = tmp_datas.length;
+			tb = $('<tbody>');
+			for(i = 0; i < tmp2; i++){
+				tr = $('<tr>');
+				for(j = 0; j < tmp; j++){
+					tr.append('<td>'+ tmp_datas[i][_columns[j].key] +'</td>');
+				}
+				tb.append(tr);
+			}
+			$('#t').append(tb);
+		}
+
+	</script>
+</html>

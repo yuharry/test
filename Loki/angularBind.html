@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app>
+    <head>
+        <meta charset="utf-8">
+        <title>angular binding</title>
+        <style>
+
+        </style>
+    </head>
+    <body ng-controller="tableCtrl">
+
+        <input ng-model="times" /> <input type="button" value="display" ng-click="dis()" />
+		<table>
+		  <thead>
+			  <tr>
+				<th ng-repeat="column in columns">{{column.value}}</th>
+			  </tr>
+		  </thead>
+		  <tbody>
+			  <tr ng-repeat="data in datas  | filter:query | orderBy:orderProp">
+				<td ng-repeat="column in columns">{{data[column.key]}}</td>
+			  </tr>
+		  </tbody>
+		</table>
+    </body>
+	<script src="components/angular/angular.js"></script>
+	<script>
+		function tableCtrl($scope){
+			$scope._columns = [
+				{'key' : 'c1', value : 'ID'},
+				{'key' : 'c2', value : 'status'},
+				{'key' : 'c3', value : 'city'},
+				{'key' : 'c4', value : 'region'},
+				{'key' : 'c5', value : 'addr'},
+				{'key' : 'c6', value : 'model'},
+				{'key' : 'c7', value : 'desc'}
+			];
+			
+			$scope._datas = [
+{'c1' : 'id001','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id002','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id003','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id004','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id005','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id006','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id007','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id008','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id009','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id010','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id011','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id012','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id013','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id014','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'},
+{'c1' : 'id015','c2' : 'ON','c3' : '台北市','c4' : '中正區','c5' : '一個可能會很長的地址','c6' : 'ABC-001','c7' : 'test'}
+			];
+			$scope.times = 1;
+			
+			$scope.dis = function(){
+				var tmp_datas = [], times = $scope.times;
+				$scope.showor = 'none';
+				console.time('s1');
+				while(times--){
+					tmp_datas = tmp_datas.concat($scope._datas);
+				}
+				console.timeEnd('s1');
+				$scope.columns = $scope._columns;
+				$scope.datas = tmp_datas;
+			}
+
+		}
+	</script>
+</html>
