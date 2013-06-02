@@ -51,7 +51,7 @@ var startValue = 100,
                 levelForNext++;
                 if(objForNext.head === to){
                     if(objForNext.value > startValue){
-                        console.log('END: ', levelForNext, objForNext);
+                        console.log('END: ', levelForNext, JSON.stringify(objForNext));
                     }
                     continue;
                 }else{
